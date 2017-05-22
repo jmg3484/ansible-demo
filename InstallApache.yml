@@ -8,7 +8,7 @@
         name: apache2
         state: latest
     - name: Enable Apache so it automatically comes up when the server reboots
-      systemd:
+      service:
         name: apache2
         enabled: yes
         state: started
