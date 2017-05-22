@@ -1,0 +1,17 @@
+###Add SSH authorized key for the current user
+---
+- hosts: all
+  vars:
+      pubkey: ~/.ssh/ansible.pub
+  tasks:
+    - name: Add libselinux-python if RHEL
+      yum:
+        name: libselinux-python
+        state: present
+      when: ansible_os_family == "RedHat"
+      become: true
+    - name: Add local SSH key as authorized key for current user
+      authorized_key:
+          user: "{{ ansible_user }}"
+          state: present
+          key: "{{ lookup('file', '{{ pubkey }}') }}"
