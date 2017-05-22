@@ -1,0 +1,16 @@
+# PromoteDomainController.yml - Promote a server newly installed with AD to DC.
+---
+- hosts: windows-dc
+  remote_user: Administrator
+  tasks:
+    - name: Promote to domain controller
+      win_domain_controller:
+        dns_domain_name: rit.test
+        # Obviously, these credentials should never be used in a prod environment
+        domain_admin_user: admin@rit.test
+        domain_admin_password: P@ssw0rd123
+        safe_mode_password: P@ssw0rd123
+        state: domain_controller
+        log_path: C:\ansible_promote.txt
+    - name: Reboot the machine.
+      win_reboot:
