@@ -1,0 +1,14 @@
+# InstallApache.yml - Installs Apache on the Ubuntu host.
+---
+- hosts: ubuntu
+  become: true
+  tasks:
+    - name: Install Apache (or upgrade it to the latest version if present)
+      package: 
+        name: apache2
+        state: latest
+    - name: Enable Apache so it automatically comes up when the server reboots
+      systemd:
+        name: apache2
+        enabled: yes
+        state: started
