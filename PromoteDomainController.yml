@@ -3,6 +3,14 @@
 - hosts: windows-dc
   remote_user: Administrator
   tasks:
+    - name: Ensure domain exists
+      win_domain:
+        dns_domain_name: rit.test
+        safe_mode_password: P@ssw0rd123
+        register: domain_result
+    - name: Reboot the server if necssary
+      win_reboot:
+      when: domain_result.reboot_required
     - name: Promote to domain controller
       win_domain_controller:
         dns_domain_name: rit.test
@@ -12,5 +20,5 @@
         safe_mode_password: P@ssw0rd123
         state: domain_controller
         log_path: C:\ansible_promote.txt
-    - name: Reboot the machine.
+    - name: Reboot the machine
       win_reboot:
