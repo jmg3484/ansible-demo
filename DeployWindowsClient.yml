@@ -7,10 +7,10 @@
       vcenter_hostname: vcenter.rit.test
       username: administrator@vsphere.local
       password: P@ssw0rd123
+
       guest: "Windows 7 Client"
+      #guest_id: windows7_64guest
       state: powered_on
-      vm_extra_config:
-        notes: "Windows 7 Client VM"
       vm_disk:
         disk1:
           size_gb: 80
@@ -19,17 +19,17 @@
           folder: "Windows 7 Client"
       vm_nic:
         nic1:
-          type: vmxnet3
+          type: e1000
           network: "VM Network"
           network_type: standard
       vm_hardware:
-        memory_mb: 2024
+        memory_mb: 2048
         num_cpus: 1
         osid: windows7_64guest
-        scsi: paravirtual
+        scsi: "lsi_sas"
         vm_cdrom:
           type: "iso"
-          iso_path: "datastore3/Win7SP1.iso"
+          iso_path: "datastore3/Win7SP1Unattend.iso"
       esxi:
-        datacenter: Datacenter
         hostname: esxi03.rit.test
+        datacenter: Datacenter
