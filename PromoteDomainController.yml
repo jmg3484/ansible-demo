@@ -7,7 +7,7 @@
       win_domain:
         dns_domain_name: rit.test
         safe_mode_password: P@ssw0rd123
-        register: domain_result
+      register: domain_result
     - name: Reboot the server if necessary
       win_reboot:
       when: domain_result.reboot_required
