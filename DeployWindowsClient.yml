@@ -15,7 +15,7 @@
         disk1:
           size_gb: 80
           type: thin
-          datastore: datastore3
+          datastore: "{{ esxi_datastore }}"
           folder: "Windows 7 Client"
       vm_nic:
         nic1:
