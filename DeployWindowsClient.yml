@@ -1,12 +1,24 @@
 # DeployWindowsClient.yml - A playbook that deploys a Windows 7 client in VCSA.
 ---
 - hosts: localhost
+  vars:
+    path: "{{ esxi_datastore }}/Win7SP1Unattend.iso"
   tasks:
+  - name: Copy the ISO onto the datastore if it doesn't already exist
+    vsphere_copy:
+      host: "{{ vcenter_hostname }}"
+      login: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      src: Win7SP1Unattend.iso
+      datacenter: "{{ esxi_datacenter }}"
+      datastore: "{{ esxi_datastore }}"
+      path: /Win7SP1Unattend.iso
+      validate_certs: False
   - name: Deploy the Windows client
     vsphere_guest:
-      vcenter_hostname: vcenter.rit.test
-      username: administrator@vsphere.local
-      password: P@ssw0rd123
+      vcenter_hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
 
       guest: "Windows 7 Client"
       #guest_id: windows7_64guest
@@ -29,7 +41,7 @@
         scsi: "lsi_sas"
         vm_cdrom:
           type: "iso"
-          iso_path: "datastore3/Win7SP1Unattend.iso"
+          iso_path: "{{ path }}"
       esxi:
-        hostname: esxi03.rit.test
-        datacenter: Datacenter
+        hostname: "{{ esxi_hostname }}"
+        datacenter: "{{ esxi_datacenter }}"
