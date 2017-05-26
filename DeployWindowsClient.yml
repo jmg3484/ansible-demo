@@ -19,9 +19,7 @@
       vcenter_hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-
       guest: "Windows 7 Client"
-      #guest_id: windows7_64guest
       state: powered_on
       vm_disk:
         disk1:
