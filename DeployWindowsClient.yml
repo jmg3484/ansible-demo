@@ -4,16 +4,6 @@
   vars:
     path: "{{ esxi_datastore }}/Win7SP1Unattend.iso"
   tasks:
-  - name: Copy the ISO onto the datastore if it doesn't already exist
-    vsphere_copy:
-      host: "{{ vcenter_hostname }}"
-      login: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
-      src: Win7SP1Unattend.iso
-      datacenter: "{{ esxi_datacenter }}"
-      datastore: "{{ esxi_datastore }}"
-      path: /Win7SP1Unattend.iso
-      validate_certs: False
   - name: Deploy the Windows client
     vsphere_guest:
       vcenter_hostname: "{{ vcenter_hostname }}"
